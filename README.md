@@ -456,9 +456,12 @@ Install:
 
 PostgreSQL
 Power BI Desktop
+
 Git
+
 1. Clone the Repository
 git clone <https://github.com/Yeshwanthreddy7/ecommerce-sales-customer-analytics-uykr>
+
 
 Navigate to the project:
 
@@ -475,6 +478,7 @@ Connect to the database and create the required schemas:
 
 CREATE SCHEMA staging;
 CREATE SCHEMA warehouse;
+
 3. Load the Raw Data
 
 Load the Olist CSV files into the appropriate staging tables.
@@ -498,11 +502,13 @@ Facts
 ├── fact_order_items
 ├── fact_order_payments
 └── fact_order_reviews
+
 5. Load Warehouse Data
 
 Execute the warehouse loading scripts to transfer data from:
 
 staging → warehouse
+
 6. Run Data Quality Checks
 
 Execute the data quality SQL scripts.
@@ -520,9 +526,7 @@ Only after validation should the data be used for dashboard analysis.
 
 7. Open Power BI
 
-Open:
-
-powerbi/ecommerce_sales_dashboard.pbix
+Open:  powerbi/ecommerce_sales_dashboard.pbix
 
 Configure the PostgreSQL connection if required.
 
@@ -530,13 +534,11 @@ Refresh the dataset.
 
 📸 Dashboard Preview
 
-Add your final dashboard screenshot here:
-
-screenshots/dashboard.png
-
 Example Markdown:
 
 ![E-Commerce Sales Dashboard](screenshots/dashboard.png)
+
+
 📁 Project Workflow
 
 The complete workflow can be summarized as:
@@ -573,6 +575,8 @@ Power BI
        │
        ▼
 Executive Sales Dashboard
+
+
 🎓 What I Learned
 
 This project provided practical experience with:
@@ -591,6 +595,8 @@ Power BI dashboard development
 Data visualization
 Git and GitHub
 End-to-end analytics project development
+
+
 🔮 Future Improvements
 
 Potential future enhancements include:
@@ -608,6 +614,8 @@ Automated ETL pipelines
 Scheduled Power BI refresh
 Advanced forecasting
 Additional geographic analysis
+
+
 📌 Project Status
 
 Status: Completed ✅
