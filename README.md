@@ -1,639 +1,399 @@
-# 🛒 Olist E-Commerce Customer Analytics
+E-Commerce Sales & Customer Analytics
 
-> End-to-end e-commerce analytics project using PostgreSQL and Power BI to transform raw Olist marketplace data into a structured analytical warehouse and an executive sales dashboard.
 
----
+1. Project Title + One-line Description
 
-## 📌 Project Overview
+E-Commerce Sales & Customer Analytics
 
-This project analyzes the **Brazilian Olist e-commerce marketplace dataset** to understand sales performance, customers, products, sellers, payments, reviews, and order behavior.
+An end-to-end analytics project using PostgreSQL, SQL, Python, and Power BI to analyze e-commerce sales, customers, products, sellers, payments, delivery performance, and customer experience.
 
-The project follows an end-to-end analytics workflow:
+2. Dashboard Screenshot
 
-**Raw Data → Staging → Data Warehouse → Data Quality Checks → SQL Analytics → Power BI Dashboard**
+Power BI Dashboard: powerbi/Analysis_Dashboard.pbix
 
-The primary objective is to build a reliable analytical data model and convert transactional e-commerce data into meaningful business insights through an interactive Power BI dashboard.
+3. Key Highlights
 
----
+Built an end-to-end E-Commerce Analytics pipeline from raw CSV data to an executive Power BI dashboard.
+Loaded 9 Olist datasets into PostgreSQL staging tables.
+Designed a structured data warehouse using fact and dimension tables.
+Performed SQL-based data transformation, quality checks, and business analysis.
+Created analytical views specifically for Power BI reporting.
+Analyzed:
+Sales and revenue
+Customers and customer behavior
+Products and categories
+Sellers
+Orders and order status
+Payments
+Delivery performance
+Customer reviews
+Developed an executive Power BI dashboard with 6 KPIs and 4 analytical visuals.
 
-## 🎯 Business Objectives
+4. Business Objectives
 
-The project focuses on answering important business questions such as:
+The project focuses on answering key business questions such as:
 
-- How much revenue has the marketplace generated?
-- How many customers and orders does the business have?
-- What is the average order value?
-- Which product categories generate the highest sales?
-- Which Brazilian states generate the most sales?
-- What is the distribution of orders by status?
-- How does revenue change over time?
-- How many products and sellers are present on the platform?
-- What can overall sales performance tell us about the marketplace?
+How much revenue is the business generating?
+How are sales changing over time?
+Which product categories generate the most revenue?
+Which states contribute the most sales?
+How many customers and orders does the business have?
+What is the Average Order Value?
+Which sellers and products perform best?
+What are the major order statuses?
+How do delivery performance and customer reviews relate to customer experience?
+Which payment methods are most commonly used?
+Who are the highest-value customers?
 
----
+5. Architecture / Pipeline
+             RAW OLIST CSV DATA
+                     │
+                     ▼
+          Python Ingestion / Profiling
+                     │
+                     ▼
+             PostgreSQL STAGING
+                     │
+                     ▼
+          Data Transformation / ETL
+                     │
+                     ▼
+            PostgreSQL WAREHOUSE
+                     │
+          ┌──────────┴──────────┐
+          ▼                     ▼
+   Quality Checks          Analytical SQL
+                                │
+                                ▼
+                         Analytics Views
+                                │
+                                ▼
+                           Power BI
+                                │
+                                ▼
+                    Executive Dashboard
 
-## 🏗️ Project Architecture
+Flow:
 
-```text
-                    ┌─────────────────────┐
-                    │   Olist CSV Data    │
-                    │     Raw Dataset     │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │       STAGING       │
-                    │   Raw Data Tables   │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │     WAREHOUSE       │
-                    │ Dimension + Fact    │
-                    │      Tables         │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │   Data Quality      │
-                    │      Checks         │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │   SQL Analytics     │
-                    │ Business Metrics    │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │      Power BI       │
-                    │ Executive Dashboard │
-                    └─────────────────────┘
-📂 Project Structure
+Collect raw Olist CSV datasets.
+Inspect and profile the raw data using Python.
+Load the datasets into PostgreSQL staging tables.
+Transform staging data into warehouse fact and dimension tables.
+Run data-quality checks.
+Perform business analysis using SQL.
+Create reporting views for Power BI.
+Build the final executive dashboard in Power BI.
+
+
+6. Repository Structure
+
 ecommerce-sales-customer-analytics/
 │
-├── data/
-│   └── raw/
-│       ├── customers.csv
-│       ├── orders.csv
-│       ├── order_items.csv
-│       ├── order_payments.csv
-│       ├── order_reviews.csv
-│       ├── products.csv
-│       ├── sellers.csv
-│       └── product_category_name_translation.csv
-│
-├── sql/
-│   ├── staging/
-│   │   └── staging_tables.sql
-│   │
-│   ├── warehouse/
-│   │   ├── warehouse_tables.sql
-│   │   └── load_warehouse.sql
-│   │
-│   └── data_quality/
-│       └── warehouse_data_quality_checks.sql
+├── docs/
+│   └── schema_overview.md
 │
 ├── powerbi/
-│   └── ecommerce_sales_dashboard.pbix
+│   └── Analysis_Dashboard.pbix
+│
+├── python/
+│   └── ingestion/
+│       ├── inspect_raw_data.py
+│       ├── load_to_postgres.py
+│       └── profile_all_tables.py
 │
 ├── screenshots/
 │   └── dashboard.png
 │
+├── sql/
+│   ├── ddl/
+│   │   ├── 01_create_schemas.sql
+│   │   ├── 02_create_staging_tables.sql
+│   │   ├── 03_create_warehouse_tables.sql
+│   │   └── query1.sql
+│   │
+│   ├── transformations/
+│   │   └── 01_load_warehouse.sql
+│   │
+│   ├── quality_checks/
+│   │   └── 01_warehouse_quality_checks.sql
+│   │
+│   ├── views/
+│   │   └── 01_powerbi_views.sql
+│   │
+│   └── analysis/
+│       ├── 01_business_analysis.sql
+│       ├── 02_customer_analysis.sql
+│       ├── 03_sales_analysis.sql
+│       ├── 04_product_category_analysis.sql
+│       ├── 05_seller_analysis.sql
+│       ├── 06_delivery_customer_experience.sql
+│       ├── 07_payment_analysis.sql
+│       └── 08_executive_kpis.sql
+│
+├── .gitignore
 ├── README.md
-└── .gitignore
+└── requirements.txt
 
-Folder and file names may vary slightly depending on the final repository structure.
+7. What Each Folder Contains
 
-🗃️ Dataset
+docs/
 
-This project uses the Brazilian E-Commerce Public Dataset by Olist.
+Contains project documentation.
 
-The dataset contains information about:
+schema_overview.md — Documents the database schemas and warehouse structure.
+python/ingestion/
 
+Contains Python scripts used during the data-ingestion and profiling stage.
+
+inspect_raw_data.py — Inspects raw CSV data.
+load_to_postgres.py — Loads the Olist CSV datasets into PostgreSQL staging tables.
+profile_all_tables.py — Profiles the datasets and helps understand their structure and quality.
+sql/ddl/
+
+Contains database-definition scripts.
+
+Creates PostgreSQL schemas.
+Creates staging tables.
+Creates warehouse tables.
+sql/transformations/
+
+Contains SQL used to transform and load data from staging into the warehouse.
+
+sql/quality_checks/
+
+Contains SQL validation and data-quality checks, including:
+
+Row counts
+Duplicate checks
+NULL checks
+Orphan-record checks
+Value validation
+sql/views/
+
+Contains analytical/reporting views designed to provide Power BI with structured datasets.
+
+sql/analysis/
+
+Contains business-focused SQL analysis covering:
+
+Business KPIs
 Customers
-Orders
-Order items
-Payments
-Reviews
-Products
-Sellers
+Sales
 Product categories
+Sellers
+Delivery and customer experience
+Payments
+Executive metrics
+powerbi/
 
-The data allows analysis of the complete order lifecycle, from purchase through delivery and review.
+Contains the Power BI dashboard file.
 
-🛠️ Technologies Used
-Technology	Purpose
-PostgreSQL	Database and data warehousing
-SQL	Data loading, validation, transformation and analytics
-Power BI	Interactive dashboard and visualization
-DAX	Business metrics and measures
-Git & GitHub	Version control and project management
-CSV	Source data format
-🏛️ Data Warehouse Design
+Analysis_Dashboard.pbix — Interactive executive sales and customer analytics dashboard.
+screenshots/
 
-The project uses a structured warehouse model containing dimension and fact tables.
+Contains screenshots of the final dashboard for repository presentation.
+
+8. Data Warehouse
+
+The PostgreSQL warehouse follows a fact-and-dimension structure.
 
 Dimension Tables
 dim_customers
-
-Contains customer-level information.
-
-Key attributes include:
-
-customer_id
-customer_unique_id
-customer_zip_code_prefix
-customer_city
-customer_state
-dim_products
-
-Contains product information.
-
-Key attributes include:
-
-product_id
-product_category_name
-product_weight_g
-product_length_cm
-product_height_cm
-product_width_cm
-dim_sellers
-
-Contains seller information.
-
-Key attributes include:
-
-seller_id
-seller_zip_code_prefix
-seller_city
-seller_state
 dim_product_category
-
-Contains product category information and English category translations.
-
-📊 Fact Tables
+dim_products
+dim_sellers
+Fact Tables
 fact_orders
-
-Stores order-level information such as:
-
-Order ID
-Customer ID
-Order status
-Purchase timestamp
-Approval timestamp
-Carrier delivery date
-Customer delivery date
-Estimated delivery date
 fact_order_items
-
-Stores individual products included in orders.
-
-Includes:
-
-Order ID
-Order item ID
-Product ID
-Seller ID
-Price
-Freight value
-Shipping limit date
 fact_order_payments
-
-Contains payment information including:
-
-Payment type
-Payment installments
-Payment value
-Payment sequence
 fact_order_reviews
-
-Contains customer review information including:
-
-Review ID
-Order ID
-Review score
-Review comments
-Review creation date
-Review answer timestamp
-🔄 ETL / Data Pipeline
-
-The project follows a simple warehouse loading process.
-
-1. Extract
-
-Raw Olist CSV files are loaded into PostgreSQL staging tables.
-
-CSV Files
+Database Schemas
+staging
    ↓
-PostgreSQL Staging
-2. Load
+warehouse
+   ↓
+analytics
+   ↓
+Power BI
 
-Data is loaded from staging tables into warehouse dimension and fact tables.
+A separate quality_checks schema is used for validation.
 
-Staging Tables
-      ↓
-Warehouse Tables
-3. Validate
+This structure separates raw/staging data, transformed warehouse data, analytical views, and quality checks, making the project easier to maintain and extend.
 
-The warehouse data is checked for:
+9. Power BI Dashboard
 
-Row counts
-Duplicate records
-NULL values
-Orphan records
-Invalid review scores
-Negative prices
-Negative freight values
-Negative payment values
-4. Analyze
+Dashboard: E-Commerce Sales Dashboard
 
-SQL queries and Power BI measures are used to calculate business metrics and identify trends.
+The dashboard provides an executive-level overview of business performance.
 
-🧪 Data Quality Checks
+KPI Cards
+KPI	Value
+Total Revenue	13.59M
+Total Customers	95K
+Total Orders	99K
+Total Products	33K
+Total Sellers	3K
+Average Order Value	160.58
+Visualizations
 
-Several validation checks were performed before building the dashboard.
+Monthly Revenue Trend
+Shows how revenue changes over time.
 
-Row Count Validation
+Top Product Categories by Sales
+Identifies the highest-performing product categories.
 
-The number of records in warehouse tables was checked to ensure that data was successfully loaded.
+Sales by Order Status
+Shows the distribution of orders across different statuses.
 
-Duplicate Checks
+Top 10 States by Sales
+Highlights the states generating the highest sales.
 
-Duplicate checks were performed on important identifiers such as:
+The dashboard follows a clean executive reporting style, with KPI cards at the top and supporting trend and performance visuals below.
 
-Customer ID
-Product ID
-Seller ID
-Order ID
-NULL Validation
+10. Key Metrics / Insights
 
-Important fields were checked for NULL values.
-
-Referential Integrity
-
-Relationships between fact and dimension tables were validated.
-
-Examples:
-
-Orders → Customers
-Order Items → Products
-Order Items → Sellers
-Payments → Orders
-Reviews → Orders
-Review Score Validation
-
-Review scores were validated to ensure they fall within the expected range:
-
-1 ≤ Review Score ≤ 5
-Financial Validation
-
-The project checks for invalid negative values in:
-
-Product price
-Freight value
-Payment value
-📈 Power BI Dashboard
-
-The final Power BI dashboard provides an executive-level overview of e-commerce performance.
-
-Dashboard Title
-
-E-COMMERCE SALES DASHBOARD
-
-Subtitle
-
-Executive Performance Overview
-
-💡 Key Performance Indicators
-
-The dashboard contains six primary KPIs:
-
-💰 Total Revenue
-
-Measures the overall sales/revenue generated from order items.
-
-👥 Total Customers
-
-Measures the number of customers represented in the dataset.
-
-🛒 Total Orders
-
-Measures the total number of orders.
-
-📦 Total Products
-
-Measures the number of products available in the dataset.
-
-🏪 Total Sellers
-
-Measures the number of sellers.
-
-📊 Average Order Value
-
-Measures the average monetary value of an order.
-
-📊 Dashboard Visualizations
-1. Monthly Revenue Trend
-
-A line chart showing how revenue changes throughout the year.
-
-Business question:
-
-How does revenue change month by month?
-
-This helps identify:
-
-High-revenue months
-Low-revenue months
-Overall revenue patterns
-Seasonal behavior
-2. Top Product Categories by Sales
-
-A horizontal bar chart showing the highest-selling product categories.
-
-Business question:
-
-Which product categories generate the most sales?
-
-This can help identify high-performing product segments.
-
-3. Top 10 States by Sales
-
-A column chart ranking Brazilian states according to sales.
-
-Business question:
-
-Which geographic markets generate the most sales?
-
-This provides a geographical view of marketplace performance.
-
-4. Sales by Order Status
-
-A donut chart showing the distribution of orders by status.
-
-Examples include:
-
-Delivered
-Shipped
-Canceled
-Unavailable
-Processing
-
-Business question:
-
-What is the distribution of orders across different order statuses?
-
-🎨 Dashboard Design
-
-The dashboard follows a clean executive-style design.
-
-Design principles
-Consistent blue color theme
-Dark blue KPI values
-Neutral labels
-Clear visual hierarchy
-Consistent card sizing
-Consistent spacing
-Minimal visual clutter
-Business-focused chart titles
-Easy-to-read labels
-
-The layout follows:
-
-                 Dashboard Title
-              Executive Subtitle
-
-      KPI   KPI   KPI   KPI   KPI   KPI
-
-       Monthly Revenue | Product Categories
-
-       Order Status    | Top 10 States
-📐 Analytical Metrics
-
-Important metrics used in the dashboard include:
+The project calculates and analyzes metrics including:
 
 Total Revenue
-Total Revenue = SUM(Order Item Price)
+Total Orders
+Total Customers
+Total Products
+Total Sellers
 Average Order Value
-
-Conceptually:
-
-Average Order Value =
-Total Revenue / Total Orders
-
-The exact implementation depends on the DAX measure used in the Power BI model.
-
-🔍 Example Business Insights
-
-The dashboard enables analysis such as:
-
-Revenue Performance
-
-Monthly revenue trends can be analyzed to determine periods of stronger and weaker sales performance.
-
+Monthly Revenue
+Monthly Orders
+Revenue Growth
+Revenue by State
+Revenue by Product Category
 Product Performance
+Seller Performance
+Customer Revenue
+Repeat vs One-time Customers
+Orders by Status
+Payment Performance
+Delivery Performance
+Customer Review Scores
+Important Dashboard Metrics
+Revenue: 13.59M
+Customers: approximately 95K
+Orders: approximately 99K
+Products: approximately 33K
+Sellers: approximately 3K
+AOV: 160.58
 
-Top product categories can be compared to identify categories contributing most to sales.
+AOV definition: Product revenue divided by distinct orders. Freight is not included in this AOV calculation.
 
-Geographic Performance
 
-Top-performing Brazilian states can be identified to understand regional demand.
+11. Technology Stack
 
-Order Performance
+Technology	Purpose
+Python	Data inspection, profiling, and ingestion
+Pandas	Data manipulation and profiling
+PostgreSQL	Database and data warehouse
+SQL	Transformation, validation, analysis, and reporting
+Power BI	Interactive dashboard and visualization
+DAX	Power BI measures and calculations
+Git & GitHub	Version control and project management
+CSV	Source data format
 
-Order status distribution provides an overview of completed, pending, canceled, and other order states.
 
-Customer Value
-
-Average Order Value provides an indication of the typical monetary value associated with an order.
-
-🚀 How to Run the Project
-Prerequisites
-
-Install:
-
-PostgreSQL
-Power BI Desktop
-
-Git
+12. How to Run
 
 1. Clone the Repository
-git clone <https://github.com/Yeshwanthreddy7/ecommerce-sales-customer-analytics-uykr>
+git clone https://github.com/Yeshwanthreddy7/ecommerce-sales-customer-analytics-uykr.git
+cd ecommerce-sales-customer-analytics-uykr
 
+2. Install Python Dependencies
+pip install -r requirements.txt
 
-Navigate to the project:
+3. Add the Olist Dataset
 
-cd ecommerce-sales-customer-analytics
-2. Create the PostgreSQL Database
+Place the raw CSV files inside:
 
-Create a PostgreSQL database for the project.
+data/raw/
 
-Example:
+The project expects the 9 Olist source files, including:
 
-CREATE DATABASE ecommerce_analytics;
+olist_customers_dataset.csv
+olist_orders_dataset.csv
+olist_order_items_dataset.csv
+olist_order_payments_dataset.csv
+olist_order_reviews_dataset.csv
+olist_products_dataset.csv
+olist_sellers_dataset.csv
+olist_geolocation_dataset.csv
+product_category_name_translation.csv
 
-Connect to the database and create the required schemas:
+4. Configure PostgreSQL
 
-CREATE SCHEMA staging;
-CREATE SCHEMA warehouse;
+Create the required database and configure the PostgreSQL connection securely using environment variables.
 
-3. Load the Raw Data
+5. Run Python Ingestion
+python python/ingestion/inspect_raw_data.py
+python python/ingestion/profile_all_tables.py
+python python/ingestion/load_to_postgres.py
 
-Load the Olist CSV files into the appropriate staging tables.
+6. Execute SQL Pipeline
 
-The staging tables represent the raw source data.
+Run the SQL scripts in this general order:
 
-4. Create Warehouse Tables
-
-Run the warehouse table creation SQL scripts.
-
-The warehouse consists of:
-
-Dimensions
-├── dim_customers
-├── dim_products
-├── dim_sellers
-└── dim_product_category
-
-Facts
-├── fact_orders
-├── fact_order_items
-├── fact_order_payments
-└── fact_order_reviews
-
-5. Load Warehouse Data
-
-Execute the warehouse loading scripts to transfer data from:
-
-staging → warehouse
-
-6. Run Data Quality Checks
-
-Execute the data quality SQL scripts.
-
-Verify:
-
-Row counts
-Duplicates
-NULL values
-Orphan records
-Invalid review scores
-Negative financial values
-
-Only after validation should the data be used for dashboard analysis.
+sql/ddl/
+      ↓
+sql/transformations/
+      ↓
+sql/quality_checks/
+      ↓
+sql/views/
+      ↓
+sql/analysis/
 
 7. Open Power BI
 
-Open:  powerbi/ecommerce_sales_dashboard.pbix
-Screenshot : ![E-Commerce Sales Dashboard](screenshots/dashboard.png)
+Open : 
 
-Configure the PostgreSQL connection if required.
+powerbi/Analysis_Dashboard.pbix
 
-Refresh the dataset.
+Refresh the data connection and explore the dashboard.
 
-📸 Dashboard Preview
+Security note: Database credentials should never be hard-coded or committed to GitHub. Use environment variables or a local .env file that is excluded through .gitignore.
 
-Example Markdown:
+13. Project Status
 
-![E-Commerce Sales Dashboard](screenshots/dashboard.png)
-
-
-📁 Project Workflow
-
-The complete workflow can be summarized as:
-
-Raw Olist Dataset
-       │
-       ▼
-CSV Files
-       │
-       ▼
-Staging Tables
-       │
-       ▼
-Data Warehouse
-       │
-       ├── Customer Dimension
-       ├── Product Dimension
-       ├── Seller Dimension
-       ├── Category Dimension
-       │
-       ├── Orders Fact
-       ├── Order Items Fact
-       ├── Payments Fact
-       └── Reviews Fact
-       │
-       ▼
-Data Quality Validation
-       │
-       ▼
-Business Metrics
-       │
-       ▼
-Power BI
-       │
-       ▼
-Executive Sales Dashboard
+✅ Completed
+ Raw dataset inspection
+ Python data profiling
+ PostgreSQL staging setup
+ Data warehouse design
+ Warehouse transformation
+ Data-quality validation
+ SQL business analysis
+ Customer analysis
+ Sales analysis
+ Product/category analysis
+ Seller analysis
+ Delivery/customer-experience analysis
+ Payment analysis
+ Executive KPI analysis
+ Power BI reporting views
+ Executive Power BI dashboard
+ Project documentation
+ Git/GitHub version control
 
 
-🎓 What I Learned
-
-This project provided practical experience with:
-
-Relational database design
-PostgreSQL
-SQL querying
-Data warehousing concepts
-Fact and dimension modeling
-ETL/ELT workflows
-Data quality validation
-Referential integrity
-Business KPI development
-DAX measures
-Power BI dashboard development
-Data visualization
-Git and GitHub
-End-to-end analytics project development
+Status: Completed
 
 
-🔮 Future Improvements
+---
 
-Potential future enhancements include:
+## Author
 
-Customer segmentation
-Customer lifetime value analysis
-Repeat customer analysis
-Seller performance analysis
-Delivery-time analysis
-Review sentiment analysis
-Product profitability analysis
-Cohort analysis
-RFM customer segmentation
-Automated ETL pipelines
-Scheduled Power BI refresh
-Advanced forecasting
-Additional geographic analysis
+**Yeshwanth Reddy**
 
+Data Analytics | SQL | Python | PostgreSQL | Power BI
 
-📌 Project Status
+This project was designed, developed, and documented as an end-to-end
+E-Commerce Sales & Customer Analytics portfolio project.
 
-Status: Completed ✅
+**GitHub:** [Yeshwanthreddy7](https://github.com/Yeshwanthreddy7)
 
-The project currently includes:
-
-✅ Raw Olist dataset
-✅ PostgreSQL staging layer
-✅ PostgreSQL warehouse
-✅ Dimension tables
-✅ Fact tables
-✅ Data quality validation
-✅ SQL analytics
-✅ DAX measures
-✅ Power BI dashboard
-✅ Executive KPI section
-✅ Sales trend analysis
-✅ Product category analysis
-✅ Geographic sales analysis
-✅ Order status analysis
+---
