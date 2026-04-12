@@ -527,6 +527,7 @@ Only after validation should the data be used for dashboard analysis.
 7. Open Power BI
 
 Open:  powerbi/ecommerce_sales_dashboard.pbix
+Screenshot : ![E-Commerce Sales Dashboard](screenshots/dashboard.png)
 
 Configure the PostgreSQL connection if required.
 
